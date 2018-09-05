@@ -9,8 +9,9 @@
 </head>
 
 <body>
+    <script src="../common/chroma.min.js" charset="utf-8"></script>
     <script>
-        const init= (ww=800, hh=600) => {
+        const init = (ww = 800, hh = 600) => {
             // Create Canvas
             const canvas = document.createElement('canvas');
             canvas.width = ww;
@@ -41,13 +42,13 @@
 
 
             // Set appearance settings
-            const magnificationFactor = 300;
-            const panX = 1;
-            const panY = 1;
+            const magnificationFactor = 400;
+            const panX = 100;
+            const panY = 0;
             for (let x = 0; x < canvas.width; x++)
                 for (let y = 0; y < canvas.height; y++) {
-                    const belongsToSet = check(x / magnificationFactor - panX, y / magnificationFactor - panY);
-                    ctx.fillStyle = (belongsToSet == -1 ? '#fff' : `hsl(0, 100%, ${belongsToSet}%)`);
+                    const belongsToSet = check((x - canvas.width / 2 - panX) / magnificationFactor, (y - canvas.height / 2 - panY) / magnificationFactor);
+                    ctx.fillStyle = (belongsToSet == -1 ? '#000' : `hsl(0, 100%, ${belongsToSet}%)`);
                     ctx.fillRect(x, y, 1, 1);
                 }
         };
