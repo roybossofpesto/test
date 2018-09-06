@@ -10,14 +10,39 @@
     <script src="../common/jquery.min.js" charset="utf-8"></script>
     <script type="text/javascript">
         $(() => {
-            const elem = $('#paper').get();
-            const paper = Raphael(elem, 320, 200);
+            const paper = Raphael(snake, 320, 320);
+            const block = paper.rect(0, 0, 32, 32).attr({
+                'fill': 'green',
+                'stroke-width': 0,
+            })
+
+            let ii = 0;
+            let jj = 0;
+            $(document).keydown((evt) => {
+                if (evt.key == "ArrowDown") ii++;
+                if (evt.key == "ArrowUp") ii--;
+                if (evt.key == "ArrowRight") jj++;
+                if (evt.key == "ArrowLeft") jj--;
+                ii = ii < 0 ? 0 : ii > 9 ? 9 : ii;
+                jj = jj < 0 ? 0 : jj > 9 ? 9 : jj;
+                block.animate({
+                    x: 32 * jj,
+                    y: 32 * ii,
+                }, 100);
+
+            })
         })
     </script>
+    <style media="screen">
+        #snake>svg {
+            border: 1px solid black;
+            background-color: #eee;
+        }
+    </style>
 </head>
 
 <body>
-    <div id="paper"></div>
+    <div id="snake"></div>
 </body>
 
 </html>
