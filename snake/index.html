@@ -11,23 +11,31 @@
     <script type="text/javascript">
         $(() => {
             const paper = Raphael(snake, 320, 320);
-            const block = paper.rect(0, 0, 32, 32).attr({
-                'fill': 'green',
+            const head = paper.circle(16, 16, 16).attr({
+                'fill': 'red',
                 'stroke-width': 0,
+                'zindex': 1,
             })
 
+            const blocks = [];
             let ii = 0;
             let jj = 0;
             $(document).keydown((evt) => {
                 if (evt.key == "ArrowDown") ii++;
-                if (evt.key == "ArrowUp") ii--;
-                if (evt.key == "ArrowRight") jj++;
-                if (evt.key == "ArrowLeft") jj--;
+                else if (evt.key == "ArrowUp") ii--;
+                else if (evt.key == "ArrowRight") jj++;
+                else if (evt.key == "ArrowLeft") jj--;
+                else return;
                 ii = ii < 0 ? 0 : ii > 9 ? 9 : ii;
                 jj = jj < 0 ? 0 : jj > 9 ? 9 : jj;
-                block.animate({
-                    x: 32 * jj,
-                    y: 32 * ii,
+                blocks.push(paper.rect(jj * 32, ii * 32, 32, 32).toBack().attr({
+                    'fill': 'yellow',
+                }));
+                while (blocks.length > 10)
+                    blocks.shift().remove();
+                head.animate({
+                    cx: 16 + 32 * jj,
+                    cy: 16 + 32 * ii,
                 }, 100);
 
             })
