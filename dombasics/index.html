@@ -1,14 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-</head>
-<body>
-    <h1>Document Object Model</h1>
-    <a id="nav" href="index.html">Home</a>
+    <script src="../common/jquery.min.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        class Vec {
+            constructor(xx = 0, yy = 0) {
+                this.xx = xx;
+                this.yy = yy;
+            }
 
+            add(aa) {
+                this.xx += aa.xx;
+                this.yy += aa.yy;
+                return this;
+            }
+
+            get patate() {
+                return this.xx;
+            }
+
+            set patate(xx_) {
+                this.xx = xx_;
+            }
+        }
+
+        const addVec = (aa, bb) => ({
+            xx: aa.xx + bb.xx,
+            yy: aa.yy + bb.yy
+        })
+
+        $(() => {
+            const bb = {
+                xx: 10,
+                yy: 0
+            };
+            const cc = new Vec(1, 1)
+            console.log(bb, cc)
+            cc.add(bb)
+            console.log(cc, addVec(cc, bb))
+            cc.patate = 42
+            console.log(cc.patate, cc.xx)
+
+
+            const para = $('<h2>').text('hello');
+            $('body').append(para);
+
+            const aa = ['pierre', 'andrew', 'nezrose'];
+
+            aa.forEach((elem, index) => {
+                console.log(elem, index)
+                $('body').append($(`<h1>`).addClass(`coucou${index}`).text(elem));
+            })
+
+            const hist = [];
+            for (let kk = 0; kk < 10; kk++) {
+                const foo = $('<button>').addClass('block').text(`!!!${kk}`);
+                foo.click(function() {
+                    const txt = $(this).text();
+                    hist.push(txt)
+                    console.log('click!!!', txt, hist.length, hist)
+                    $('#target').text(hist.join('\n'))
+                })
+                $('div.container').append(foo);
+            }
+        })
+    </script>
+    <style media="screen">
+        .coucou1 {
+            background-color: red;
+        }
+
+        .block {
+            display: inline-flex;
+            width: 2rem;
+            height: 2rem;
+            background-color: yellow;
+            border: 1px solid black;
+            margin: .5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id='target'>Document Object Model</h1>
+    <a id="nav" href="index.html">Home</a>
+    <div class="container"></div>
 </body>
+
 </html>
